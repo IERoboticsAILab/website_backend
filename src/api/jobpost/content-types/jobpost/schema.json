@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jobposts",
+  "info": {
+    "singularName": "jobpost",
+    "pluralName": "jobposts",
+    "displayName": "Jobpost",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "position": {
+      "type": "string"
+    },
+    "recommendation": {
+      "type": "text"
+    },
+    "requirements": {
+      "type": "text"
+    },
+    "contactemail": {
+      "type": "string"
+    },
+    "date": {
+      "type": "text"
+    },
+    "note": {
+      "type": "text"
+    }
+  }
+}
