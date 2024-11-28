@@ -447,6 +447,7 @@ export interface ApiJobpostJobpost extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     date: Schema.Attribute.Text;
+    description: Schema.Attribute.RichText;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -456,8 +457,7 @@ export interface ApiJobpostJobpost extends Struct.CollectionTypeSchema {
     note: Schema.Attribute.Text;
     position: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    recommendation: Schema.Attribute.Text;
-    requirements: Schema.Attribute.Text;
+    requirements: Schema.Attribute.RichText;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -486,8 +486,7 @@ export interface ApiLandingLanding extends Struct.SingleTypeSchema {
     customarea: Schema.Attribute.DynamicZone<
       ['shared.media', 'shared.json-rich-text']
     >;
-    introdescription: Schema.Attribute.Text;
-    introtitle: Schema.Attribute.String;
+    Intro: Schema.Attribute.Blocks;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -507,6 +506,7 @@ export interface ApiLandingLanding extends Struct.SingleTypeSchema {
 export interface ApiMemberMember extends Struct.CollectionTypeSchema {
   collectionName: 'members';
   info: {
+    description: '';
     displayName: 'member';
     pluralName: 'members';
     singularName: 'member';
@@ -515,6 +515,7 @@ export interface ApiMemberMember extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    alum: Schema.Attribute.Boolean;
     bio: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -596,6 +597,7 @@ export interface ApiPublicationPublication extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    abstract: Schema.Attribute.Text;
     authors: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
