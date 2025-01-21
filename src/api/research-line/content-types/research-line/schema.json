@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "projects",
+  "collectionName": "research_lines",
   "info": {
-    "singularName": "project",
-    "pluralName": "projects",
-    "displayName": "Project",
+    "singularName": "research-line",
+    "pluralName": "research-lines",
+    "displayName": "Research Line",
     "description": ""
   },
   "options": {
@@ -58,13 +58,13 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::publication.publication",
-      "inversedBy": "projects"
+      "inversedBy": "research_lines"
     },
-    "research_lines": {
+    "projects": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::research-line.research-line",
-      "mappedBy": "projects"
+      "target": "api::project.project",
+      "inversedBy": "research_lines"
     }
   }
 }

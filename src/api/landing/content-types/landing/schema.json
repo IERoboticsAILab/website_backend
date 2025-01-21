@@ -36,14 +36,11 @@
         "audios"
       ]
     },
-    "introtitle": {
-      "type": "string"
-    },
-    "introdescription": {
-      "type": "text"
-    },
     "videocaption": {
       "type": "string"
+    },
+    "Intro2": {
+      "type": "richtext"
     }
   }
 }

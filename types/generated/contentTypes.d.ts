@@ -447,6 +447,7 @@ export interface ApiJobpostJobpost extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     date: Schema.Attribute.Text;
+    description: Schema.Attribute.RichText;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -456,8 +457,7 @@ export interface ApiJobpostJobpost extends Struct.CollectionTypeSchema {
     note: Schema.Attribute.Text;
     position: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    recommendation: Schema.Attribute.Text;
-    requirements: Schema.Attribute.Text;
+    requirements: Schema.Attribute.RichText;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -486,8 +486,7 @@ export interface ApiLandingLanding extends Struct.SingleTypeSchema {
     customarea: Schema.Attribute.DynamicZone<
       ['shared.media', 'shared.json-rich-text']
     >;
-    introdescription: Schema.Attribute.Text;
-    introtitle: Schema.Attribute.String;
+    Intro2: Schema.Attribute.RichText;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -507,6 +506,7 @@ export interface ApiLandingLanding extends Struct.SingleTypeSchema {
 export interface ApiMemberMember extends Struct.CollectionTypeSchema {
   collectionName: 'members';
   info: {
+    description: '';
     displayName: 'member';
     pluralName: 'members';
     singularName: 'member';
@@ -515,6 +515,7 @@ export interface ApiMemberMember extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    alum: Schema.Attribute.Boolean;
     bio: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -538,6 +539,7 @@ export interface ApiMemberMember extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    website: Schema.Attribute.String;
   };
 }
 
@@ -576,6 +578,10 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       'api::publication.publication'
     >;
     publishedAt: Schema.Attribute.DateTime;
+    research_lines: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::research-line.research-line'
+    >;
     tagline: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -596,11 +602,16 @@ export interface ApiPublicationPublication extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    abstract: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
     authors: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     date: Schema.Attribute.Date;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -613,9 +624,58 @@ export interface ApiPublicationPublication extends Struct.CollectionTypeSchema {
     pdflink: Schema.Attribute.String;
     projects: Schema.Attribute.Relation<'manyToMany', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
+    research_lines: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::research-line.research-line'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiResearchLineResearchLine
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'research_lines';
+  info: {
+    description: '';
+    displayName: 'Research Line';
+    pluralName: 'research-lines';
+    singularName: 'research-line';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    about: Schema.Attribute.Blocks;
+    banner: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    gallery: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::research-line.research-line'
+    > &
+      Schema.Attribute.Private;
+    members: Schema.Attribute.Relation<'oneToMany', 'api::member.member'>;
+    name: Schema.Attribute.String;
+    projects: Schema.Attribute.Relation<'manyToMany', 'api::project.project'>;
+    publications: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::publication.publication'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    tagline: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    videolink: Schema.Attribute.String;
   };
 }
 
@@ -1131,6 +1191,7 @@ declare module '@strapi/strapi' {
       'api::member.member': ApiMemberMember;
       'api::project.project': ApiProjectProject;
       'api::publication.publication': ApiPublicationPublication;
+      'api::research-line.research-line': ApiResearchLineResearchLine;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

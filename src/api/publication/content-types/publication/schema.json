@@ -37,6 +37,26 @@
       "relation": "manyToMany",
       "target": "api::project.project",
       "mappedBy": "publications"
+    },
+    "abstract": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "research_lines": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::research-line.research-line",
+      "mappedBy": "publications"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

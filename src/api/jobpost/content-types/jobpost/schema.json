@@ -15,12 +15,6 @@
     "position": {
       "type": "string"
     },
-    "recommendation": {
-      "type": "text"
-    },
-    "requirements": {
-      "type": "text"
-    },
     "contactemail": {
       "type": "string"
     },
@@ -29,6 +23,12 @@
     },
     "note": {
       "type": "text"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "requirements": {
+      "type": "richtext"
     }
   }
 }
