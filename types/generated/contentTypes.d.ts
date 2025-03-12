@@ -448,6 +448,7 @@ export interface ApiJobpostJobpost extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     date: Schema.Attribute.Text;
     description: Schema.Attribute.RichText;
+    instructions: Schema.Attribute.RichText;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
